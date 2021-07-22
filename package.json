@@ -1,0 +1,19 @@
+{
+  "name": "gamecube-controller-support",
+  "version": "1.0.0",
+  "displayName": "Gamecube controller support",
+  "description": "Adds support for the original Gamecube controller adapter for wii u",
+  "unity": "2019.1",
+  "unityRelease": "0b5",  
+  "dependencies": {    
+ },
+ "keywords": [
+    "gamecube",
+    "controller",
+    "support"
+  ],
+  "author": {
+    "name": "Julian B.",
+    "email": "enfy@rocketmail.com"
+  }
+}
