@@ -2,12 +2,12 @@
 using System.Linq;
 using System.Threading;
 using LibUsbDotNet.Main;
-using UnityEngine;
 using MonoLibUsb;
 using MonoLibUsb.Descriptors;
 using MonoLibUsb.Profile;
+using UnityEngine;
 
-namespace Unity.GamecubeControllerSupport.Runtime
+namespace GamecubeControllerSupport
 {
     public static class GamecubeControllerAdapter
     {
@@ -57,8 +57,8 @@ namespace Unity.GamecubeControllerSupport.Runtime
                 MonoUsbApi.ClaimInterface(_deviceHandle, 0);
 
                 foreach (MonoUsbEndpointDescriptor usbEndpoint in configDescriptor.InterfaceList
-                        .SelectMany(usbInterface => usbInterface.AltInterfaceList
-                        .SelectMany(usbAltInterface => usbAltInterface.EndpointList)))
+                    .SelectMany(usbInterface => usbInterface.AltInterfaceList
+                    .SelectMany(usbAltInterface => usbAltInterface.EndpointList)))
                 {
                     if (usbEndpoint.bEndpointAddress.CompareTo((byte) UsbEndpointDirection.EndpointIn) > 0)
                         endpoint_in = usbEndpoint.bEndpointAddress;
@@ -130,7 +130,7 @@ namespace Unity.GamecubeControllerSupport.Runtime
         }
 
         private static bool IsWiiUAdapter(MonoUsbProfile profile) =>
-            profile.DeviceDescriptor.VendorID == 0x057e && profile.DeviceDescriptor.ProductID == 0x0337;
+        profile.DeviceDescriptor.VendorID == 0x057e && profile.DeviceDescriptor.ProductID == 0x0337;
 
         /// <summary>
         /// Returns the GamecubeController object of the indicated port.
@@ -143,5 +143,4 @@ namespace Unity.GamecubeControllerSupport.Runtime
             return ports[portIndex];
         }
     }
-
 }

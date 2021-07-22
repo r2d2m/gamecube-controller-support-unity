@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using UnityEngine;
 
-namespace Unity.GamecubeControllerSupport.Runtime
+namespace GamecubeControllerSupport
 {
     public class GamecubeController
     {
@@ -127,5 +127,4 @@ namespace Unity.GamecubeControllerSupport.Runtime
 
         private static bool BitValue(byte b, int offset) => (b & (1 << offset - 1)) != 0;
     }
-
 }
