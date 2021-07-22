@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using LibUsbDotNet.Main;
 using UnityEngine;
@@ -29,7 +30,6 @@ namespace Unity.GamecubeControllerSupport.Runtime
         /// </summary>
         public static void Start()
         {
-            Debug.Log("Start Polling");
             ports = new GamecubeController[4];
             for (int i = 0; i < 4; i++)
                 ports[i] = new GamecubeController(i + 1);
@@ -56,10 +56,9 @@ namespace Unity.GamecubeControllerSupport.Runtime
                 MonoUsbConfigDescriptor configDescriptor = new MonoUsbConfigDescriptor(configHandle);
                 MonoUsbApi.ClaimInterface(_deviceHandle, 0);
 
-                foreach (MonoUsbEndpointDescriptor usbEndpoint in
-                    configDescriptor.InterfaceList
+                foreach (MonoUsbEndpointDescriptor usbEndpoint in configDescriptor.InterfaceList
                         .SelectMany(usbInterface => usbInterface.AltInterfaceList
-                            .SelectMany(usbAltInterface => usbAltInterface.EndpointList)))
+                        .SelectMany(usbAltInterface => usbAltInterface.EndpointList)))
                 {
                     if (usbEndpoint.bEndpointAddress.CompareTo((byte) UsbEndpointDirection.EndpointIn) > 0)
                         endpoint_in = usbEndpoint.bEndpointAddress;
@@ -84,7 +83,6 @@ namespace Unity.GamecubeControllerSupport.Runtime
         /// </summary>
         public static void Stop()
         {
-            Debug.Log("Stop polling");
             IsReading = false;
             MonoUsbApi.ReleaseInterface(_deviceHandle, 0);
             _deviceHandle.Close();
