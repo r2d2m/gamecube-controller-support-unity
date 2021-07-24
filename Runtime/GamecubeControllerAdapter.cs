@@ -28,7 +28,8 @@ namespace GamecubeControllerSupport
         /// partly derrived from Example code:
         /// http://libusbdotnet.sourceforge.net/V2/html/476f208c-6b00-48ea-b829-29988d214678.htm
         /// </summary>
-        public static void Start()
+        /// <returns> Returns true if the reader thread was started sucessfully, else false.</returns>
+        public static bool Start()
         {
             ports = new GamecubeController[4];
             for (int i = 0; i < 4; i++)
@@ -45,7 +46,7 @@ namespace GamecubeControllerSupport
                 profileList.Refresh(_sessionHandle);
                 MonoUsbProfile myProfile = profileList.GetList().Find(IsWiiUAdapter);
 
-                if (myProfile == null) return;
+                if (myProfile == null) return false;
 
                 _deviceHandle = myProfile.OpenDeviceHandle();
                 if (_deviceHandle.IsInvalid)
@@ -75,7 +76,10 @@ namespace GamecubeControllerSupport
             catch (Exception ex)
             {
                 Debug.LogException(ex);
+                return false;
             }
+
+            return true;
         }
 
         /// <summary>
