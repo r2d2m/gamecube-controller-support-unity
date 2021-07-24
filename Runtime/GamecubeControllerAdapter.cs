@@ -134,7 +134,7 @@ namespace GamecubeControllerSupport
         }
 
         private static bool IsWiiUAdapter(MonoUsbProfile profile) =>
-        profile.DeviceDescriptor.VendorID == 0x057e && profile.DeviceDescriptor.ProductID == 0x0337;
+        profile.DeviceDescriptor.VendorID == VendorID && profile.DeviceDescriptor.ProductID == ProductID;
 
         /// <summary>
         /// Returns the GamecubeController object of the indicated port.
